@@ -1,0 +1,35 @@
+<%- include('../partials/header.ejs')%>
+<div class = "content">
+
+<form method = "POST" action = "/stories/<%= story.id%>?_method=PUT" class="new-form">
+    <label for="title" >Title</label>
+    <input type="text" id="title" name="title" value = "<%= story.title%>" required>
+
+
+    <label for="condition">Condition:</label>
+        <select id="condition" name="condition">
+            <option value="New" <%= story.condition === 'New' ? 'selected' : '' %>>New</option>
+            <option value="Used - Like New" <%= story.condition === 'Used - Like New' ? 'selected' : '' %>>Used - Like New</option>
+            <option value="Used - Good" <%= story.condition === 'Used - Good' ? 'selected' : '' %>>Used - Good</option>
+            <option value="Used - Acceptable" <%= story.condition === 'Used - Acceptable' ? 'selected' : '' %>>Used - Acceptable</option>
+        </select>
+
+    <label for="price">Price: </label>
+    <input type="text" id="price" name="price" value="<%= story.price %>">
+
+
+    
+    <label for="content">content</label>
+    <textarea rows="5" id="content" name="content" class = "fixed-width" required minlength="10"><%= story.content%></textarea>
+
+
+        
+    <label for="image">Image</label>
+    <input type="file" name="image" id="image">
+    
+    <input type="submit" value="Submit">  
+
+
+</form>
+</div>
+<%- include('../partials/footer.ejs')%>

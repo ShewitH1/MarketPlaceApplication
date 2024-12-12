@@ -1,0 +1,34 @@
+<%- include('../partials/header.ejs') %>
+
+<h2>Welcome, <%= user.firstName %> <%= user.lastName %></h2>
+
+<% if (Array.isArray(stories) && stories.length) { %>
+    <p>You have created the following stories:</p>
+    <% stories.forEach(story => { %>
+        <div class="story-item">
+            <a href="/stories/<%= story.id %>">
+            <h4><%= story.title %></h4>
+            </a>
+            <p><strong>Status:</strong> <%= story.active ? 'Active' : 'Inactive' %></p>
+
+            <div class="story-actions">
+                <form method="GET" action="/stories/<%= story.id %>/edit">
+                    <button type="submit">Edit</button>
+                </form>
+                <form method="POST" action="/stories/<%= story.id %>?_method=DELETE">
+                    <button type="submit">Delete</button>
+                </form>
+                <form method="GET" action="/stories/<%= story.id %>/">
+                    <button type="submit">View Offers</button>
+                </form>
+            </div>
+        </div>
+    <% }); %>
+<% } else { %>
+    <p>You have not created any stories.</p>
+<% } %>
+
+<!-- Adding the items section from your original snippet -->
+
+
+<%- include('../partials/footer.ejs') %>

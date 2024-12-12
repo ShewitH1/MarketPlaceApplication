@@ -1,0 +1,51 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="content container">
+<div class="shoe-image">
+   <img src="<%= story.image %>" alt="<%= story.title %>" width="150" height="150">
+</div>
+
+<div class="shoe-content">
+   <small>Posted <%= story.createdAt %> by 
+   <%= story.author ? story.author.firstName + ' ' + story.author.lastName : 'Unknown Author' %>
+   </small>
+   <h4>Jordan Shoe Vintage: <%= story.title %></h4>
+   <p class="condition">Condition: <%= story.condition %></p>
+   
+<div class="pricings">
+   <p class="prices">Price: $<%= story.price %></p>
+   <p class="seller">
+      Author: <%= story.author ? story.author.firstName + ' ' + story.author.lastName : 'Unknown' %>
+   </p>
+   <p><strong>Offers:</strong> <%= story.offers %></p>
+   <p><strong>Status:</strong> <%= story.active %></p>
+   </div>
+   
+   <% if (story.active === 'active') { %>
+   <form action="/stories/<%= story.id %>/offers" method="POST">
+      <label for="amount">Make an Offer:</label>
+      <input type="number" name="amount" min="0.01" step="0.01" required>
+      <button type="submit">Submit</button>
+   </form>
+   <% } else { %>
+   <p>This item is no longer available.</p>
+   <% } %>
+   
+   
+   <div class="description">Details: <%= story.content %></div>
+   
+   <% if(user && story.author && user.toString() === story.author._id.toString()) { %>
+   <div class="buttons">
+      <form method="GET" action="/stories/<%= story.id %>/edit" class="yes buttons">
+         <button class="button-1" type="submit">Edit</button>
+      </form>
+      
+      <form method="POST" action="/stories/<%= story.id %>?_method=DELETE" class="buttons">
+         <button class="button-2" type="submit">Delete</button>
+      </form>
+   </div>
+   <% } %>
+</div>
+</div>
+
+<%- include('../partials/footer.ejs') %>
